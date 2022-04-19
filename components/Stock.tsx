@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
-import config from "../config/config.json";
+import { Base, Typography } from "../styles";
 
-function StockList() {
-    const [products, setProducts] = useState([]);
+import productModel from "../models/products";
 
-    useEffect(() => {
-        fetch(`${config.base_url}/products?api_key=${config.api_key}`)
-        .then(response => response.json())
-        .then(result => setProducts(result.data));
+function StockList({products, setProducts}) {
+    useEffect(async () => {
+        setProducts(await productModel.getProducts());
     }, []);
 
-    const list = products.map((product, index) => <Text key={index}>{ product.name } - { product.stock }</Text>);
+const list = products.map((product, index) => <Text key={index}>Produktnamn: { product.name } - antal i lager: { product.stock } st</Text>);
 
     return (
         <View>
@@ -20,11 +18,14 @@ function StockList() {
     );
 }
 
-export default function Stock() {
+
+
+export default function Stock({products, setProducts}) {
     return (
+
     <View>
         <Text style={{color: '#333', fontSize: 24}}>Lagerförteckning</Text>
-        <StockList/>
+        <StockList products={products} setProducts={setProducts} />
     </View>
     );
 }
