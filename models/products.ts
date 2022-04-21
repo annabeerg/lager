@@ -13,7 +13,6 @@ const orders = {
         }
     },
     updateProduct: async function updateProduct(products) {
-        console.log(products)
         try {
             products.api_key = config.api_key;
 

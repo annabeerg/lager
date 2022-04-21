@@ -26,3 +26,9 @@ export const header3 = {
 export const normal = {
     fontSize: 20,
 };
+
+export const label = {
+    fontSize: 16,
+    textTransform: "uppercase",
+    color: "#555",
+};

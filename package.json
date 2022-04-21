@@ -14,20 +14,27 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "4.0.0",
+    "@react-native-picker/picker": "2.2.1",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.1",
+    "events": "^3.3.0",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
     "expo-updates": "~0.11.6",
+    "fs": "^0.0.1-security",
     "jest": "^26.6.3",
     "jest-expo": "^44.0.1",
+    "path": "^0.12.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
+    "sqlite3": "^5.0.4",
+    "url": "^0.11.0",
     "yarn": "^1.22.18"
   },
   "devDependencies": {
