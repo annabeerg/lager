@@ -4,9 +4,17 @@ import product from "./products";
 import Order from "../interfaces/order";
 import OrderItem from "../interfaces/order_item";
 
+
 const orders = {
     getOrders: async function getOrders(): Promise<Order[]> {
         const response = await fetch(`${config.base_url}/orders?api_key=${config.api_key}`);
+        const result = await response.json();
+
+        return result.data;
+    },
+
+    getOrder: async function getOrder(invoice): Promise<Order[]> {
+        const response = await fetch(`${config.base_url}/orders/${invoice.order_id}?api_key=${config.api_key}`);
         const result = await response.json();
 
         return result.data;

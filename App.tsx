@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Base, Typography } from "../lager/styles";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Home from "./components/Home";
-import Pick from "./components/Pick";
-import Deliveries from "./components/Deliveries";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import Home from "./components/Home";
+import Pick from "./components/Pick";
+import Deliveries from "./components/Deliveries";
+import Invoices from "./components/Invoices";
+import Auth from "./components/auth/Auth";
+import authModel from "./models/auth";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,11 +19,18 @@ const routeIcons = {
   "Lager": "home",
   "Plock": "list",
   "Ny inleverans": "car",
+  "Faktura": "card",
+  "Logga in": "log-in",
 };
 
 export default function App() {
   const [products, setProducts] = useState([]);
-  const [allDeliveries, setAllDeliveries] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+
+  useEffect(async () => {
+    setIsLoggedIn(await authModel.loggedIn());
+  }, []);
+
   return (
     <SafeAreaView style={Base.container}>
       <NavigationContainer>
@@ -41,6 +51,14 @@ export default function App() {
             {(props) => <Pick {...props} products={products} setProducts={setProducts} />}
           </Tab.Screen>
           <Tab.Screen name="Ny inleverans" component={Deliveries} />
+          {isLoggedIn ?
+            <Tab.Screen name="Faktura">
+            {() => <Invoices setIsLoggedIn={setIsLoggedIn} />}
+          </Tab.Screen> :
+            <Tab.Screen name="Logga in">
+              {() => <Auth setIsLoggedIn={setIsLoggedIn} />}
+            </Tab.Screen>
+          }
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
