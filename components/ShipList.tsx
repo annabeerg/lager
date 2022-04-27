@@ -22,7 +22,7 @@ export default function ShipList({route, navigation }) {
     }, []);
 
     const listOfOrders = allOrders
-        .filter(order => order.status === "Ny")
+        .filter(order => order.status === "Packad")
         .map((order, index) => {
             return <Button
                 title={order.name}
