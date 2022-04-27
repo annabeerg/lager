@@ -12,7 +12,9 @@ export default function Pick(props) {
     return (
         <Stack.Navigator initialRouteName="List">
             <Stack.Screen name="List" component={ShipList} />
-            <Stack.Screen name="Details" component={ShipOrder} />
+            <Stack.Screen name="Details">
+                {(screenProps) => <ShipOrder {...screenProps} setProducts={props.setProducts} />}
+            </Stack.Screen>
         </Stack.Navigator>
     );
 }

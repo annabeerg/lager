@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet } from "react-native";
 import { Base, Typography } from "../styles";
 import * as Location from 'expo-location';
 
@@ -8,11 +8,22 @@ import { Marker } from "react-native-maps";
 
 import getCoordinates from "../models/nominatim";
 
-export default function ShipOrder({ route }) {
+export default function ShipOrder({ route, navigation, setProducts }) {
+    const { reload } = route.params || false;
     const {order} = route.params;
     const [marker, setMarker] = useState(null);
     const [locationMarker, setLocationMarker] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [productsList, setProductsLists] = useState([]);
+
+    const orderItemsList = order.order_items.map((item, index) => {
+        return <Text
+                key={index} style={Typography.normal}
+                >
+                    {item.name} - antal: {item.amount} st
+            </Text>;
+    });
+
 
     useEffect(() => {
         (async () => {
@@ -51,6 +62,13 @@ export default function ShipOrder({ route }) {
     return (
         <View style={Base.base}>
             <Text style={Typography.header2}>Skicka order</Text>
+            <Text style={Typography.header3}>{order.name}</Text>
+            <Text style={Typography.normal}>{order.address}</Text>
+            <Text style={Typography.normal}>{order.zip} {order.city}</Text>
+
+            <Text style={Typography.header3}>Produkter:</Text>
+
+            {orderItemsList}
             <View style={styles.container}>
                 <MapView
                     style={styles.map}
