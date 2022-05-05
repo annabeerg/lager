@@ -5,6 +5,7 @@ import { Base, Typography } from "../lager/styles";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FlashMessage from "react-native-flash-message";
 
 import Home from "./components/Home";
 import Pick from "./components/Pick";
@@ -44,6 +45,7 @@ export default function App() {
             },
             tabBarActiveTintColor: 'blue',
             tabBarInactiveTintColor: 'gray',
+            headerShown: false
           })}
         >
           <Tab.Screen name="Lager">
@@ -65,6 +67,7 @@ export default function App() {
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
+      <FlashMessage position="top" />
     </SafeAreaView>
   );
 }

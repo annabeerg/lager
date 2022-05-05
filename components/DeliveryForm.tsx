@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import productModel from "../models/products";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Platform, ScrollView, Text, TextInput, Button, View } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 import Delivery from '../interfaces/delivery';
 import deliveryModel from "../models/delivery";
@@ -76,9 +77,17 @@ export default function DeliveryForm({ navigation }) {
             stock: (currentProduct.stock || 0) + (delivery.amount || 0)
         };
 
-        await productModel.updateProduct(updatedProduct);
+        const result = await productModel.updateProduct(updatedProduct);
 
-        navigation.navigate("List", { reload: true });
+        if (result.type === "success") {
+            navigation.navigate("List", { reload: true });
+
+            showMessage({
+                message: result.title,
+                description: result.message,
+                type: result.type,
+            });
+        }
     }
 
     return (

@@ -23,6 +23,12 @@ const orders = {
                 },
                 method: 'PUT'
             });
+
+            return {
+                title: "Delivery",
+                message: "skapad",
+                type: "success",
+            };
         } catch (error) {
             console.log("Could not update product!")
         }

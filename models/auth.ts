@@ -25,9 +25,21 @@ const auth = {
         });
         const result = await response.json();
 
+        if (Object.prototype.hasOwnProperty.call(result, 'errors')) {
+            return {
+                title: result.errors.title,
+                message: result.errors.detail,
+                type: "danger",
+            };
+        }
+        
         await storage.storeToken(result.data.token);
-
-        return result.data.message;
+        
+        return {
+            title: "Inloggning",
+            message: result.data.message,
+            type: "success",
+        };
     },
     register: async function register(email: string, password: string) {
         const data = {
@@ -43,7 +55,23 @@ const auth = {
             },
         });
 
-        return await response.json();
+        const result = await response.json();
+
+        if (Object.prototype.hasOwnProperty.call(result, 'errors')) {
+            return {
+                title: result.errors.title,
+                message: result.errors.detail,
+                type: "danger",
+            };
+        }
+        
+        await storage.storeToken(result.data.token);
+        
+        return {
+            title: "Registrering",
+            message: result.data.message,
+            type: "success",
+        };
     },
     logout: async function logout() {
         await storage.deleteToken();
