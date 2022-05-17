@@ -6,8 +6,10 @@ import DeliveriesList from '../components/DeliveriesList';
 const route = { params: false}
 
 test('header should exist containing text Inleveranser', async () => {
-    const { getByText } = render(<DeliveriesList route={route} />);
+    const { getByText, debug } = render(<DeliveriesList route={route} />);
     const header = await getByText('Inleveranser');
+    const button = await getByText('Skapa ny inleverans');
 
     expect(header).toBeDefined();
+    expect(button).toBeDefined();
 });
